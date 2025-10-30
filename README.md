@@ -9,6 +9,7 @@ Este sistema realiza análise completa de dados de vendas, incluindo previsões 
 ```
 mba_ia_unifor_projeto1/
 ├── 📊 DADOS
+│   ├── _gerarDataSets.py           # Script para gerar datasets (EXECUTAR PRIMEIRO)
 │   └── datasets/
 │       ├── vendas.csv              # Dataset principal de vendas
 │       ├── covid.csv               # Dados auxiliares
@@ -84,6 +85,24 @@ python -c "import pandas, numpy, matplotlib, seaborn, plotly, scipy; print('✅ 
 
 ## 🚀 Como Executar
 
+### ⚠️ PRIMEIRO PASSO: Gerar os Datasets
+
+**IMPORTANTE**: Antes de executar qualquer análise, você deve gerar os datasets necessários:
+
+```bash
+# Execute PRIMEIRO para criar todos os datasets
+python _gerarDataSets.py
+```
+
+Este script irá:
+- Criar a pasta `datasets/` automaticamente
+- Gerar todos os arquivos CSV necessários:
+  - `vendas.csv` (dataset principal com dados de 2022-2024)
+  - `titanic.csv` (500 registros simulados)
+  - `ibge_populacao.csv` (dados populacionais 2015-2024)
+  - `covid.csv` (dados semanais 2020-2022)
+  - `filmes.csv` (200 filmes com notas e popularidade)
+
 ### ⚠️ Importante: Verificação de Dependências
 
 Antes de executar qualquer análise, certifique-se de que todas as dependências estão instaladas:
@@ -101,6 +120,9 @@ pip install pandas numpy matplotlib seaborn plotly scipy kaleido
 Para executar todas as análises na sequência correta, execute os scripts na seguinte ordem:
 
 ```bash
+# 0. PRIMEIRO: Gerar datasets (se ainda não executou)
+python _gerarDataSets.py
+
 # 1. Análise básica de vendas
 python analise_vendas.py
 
@@ -154,6 +176,43 @@ Após a execução, os resultados serão gerados na pasta `output/`:
 Para visualizar os dashboards interativos, abra os arquivos HTML em qualquer navegador.
 
 ## 📊 Estrutura dos Dados
+
+### 🛠️ Gerador de Datasets (_gerarDataSets.py)
+
+O script `_gerarDataSets.py` é responsável por criar todos os datasets necessários para o projeto. Ele gera dados simulados mas realistas para demonstrar as funcionalidades do sistema.
+
+**Características dos dados gerados:**
+
+#### 📈 Vendas (vendas.csv)
+- **Período**: Janeiro 2022 - Dezembro 2024 (36 meses)
+- **Produtos**: Notebook, Smartphone, Impressora, Monitor, Headset
+- **Regiões**: Nordeste, Sudeste, Sul, Centro-Oeste, Norte
+- **Vendedores**: Ana, Bruno, Carlos, Daniela, Eduardo, Fernanda
+- **Registros**: ~540 (36 meses × 5 regiões × 5 produtos)
+- **Campos**: Data, Regiao, Produto, Vendedor, Qtd_Vendida, Receita, Custo, Lucro
+
+#### 🚢 Titanic (titanic.csv)
+- **Registros**: 500 passageiros simulados
+- **Campos**: PassengerId, Pclass, Sex, Age, Fare, Survived
+- **Uso**: Dados auxiliares para análises complementares
+
+#### 👥 População IBGE (ibge_populacao.csv)
+- **Período**: 2015-2024
+- **Regiões**: Norte, Nordeste, Centro-Oeste, Sudeste, Sul
+- **Campos**: Ano, Regiao, Populacao
+- **Uso**: Análises demográficas regionais
+
+#### 🦠 COVID (covid.csv)
+- **Período**: Março 2020 - Dezembro 2022 (dados semanais)
+- **Regiões**: Norte, Nordeste, Centro-Oeste, Sudeste, Sul
+- **Campos**: Data, Regiao, Casos, Obitos, Vacinados
+- **Uso**: Análises de impacto pandêmico
+
+#### 🎬 Filmes (filmes.csv)
+- **Registros**: 200 filmes
+- **Campos**: Filme, Genero, Ano, Nota, Popularidade
+- **Gêneros**: Ação, Comédia, Drama, Terror, Ficção
+- **Uso**: Dados auxiliares para análises de entretenimento
 
 ### Dataset Principal (vendas.csv)
 
@@ -488,6 +547,13 @@ pip install -r requirements.txt
 ```
 
 ### ❌ Erro: Arquivo não encontrado
+
+Se você receber erro `FileNotFoundError` para qualquer dataset:
+
+```bash
+# Execute o gerador de datasets
+python _gerarDataSets.py
+```
 
 Verifique se `datasets/vendas.csv` existe e tem a estrutura correta
 
